@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '../../styles/globals.css'
 import "slick-carousel/slick/slick.css";
 import Navbar from '@/components/Navbar'
+import PageButton from '@/components/PageButton';
 
 export const metadata: Metadata = {
   title: 'Online Super Store',
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className='font-display'>
         <Navbar />
+        <PageButton />
         {children}
       </body>
     </html>
