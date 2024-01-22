@@ -3,6 +3,7 @@ import '../../styles/globals.css'
 import "slick-carousel/slick/slick.css";
 import Navbar from '@/components/Navbar'
 import PageButton from '@/components/PageButton';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Online Super Store',
@@ -20,6 +21,7 @@ export default function RootLayout({
         <Navbar />
         <PageButton />
         {children}
+        <Footer />
       </body>
     </html>
   )

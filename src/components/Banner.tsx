@@ -106,7 +106,7 @@ const Banner = ({ banners }: any) => {
     ],
   };
   return (
-    <div>
+    <section>
       <Slider {...settings}>
         {banners?.map((item: any) => (
           <Link href={"/shop"} className="relative" key={item?._id}>
@@ -121,7 +121,7 @@ const Banner = ({ banners }: any) => {
           </Link>
         ))}
       </Slider>
-    </div>
+    </section>
   );
 };
 
