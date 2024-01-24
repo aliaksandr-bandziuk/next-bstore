@@ -1,5 +1,5 @@
 import imageUrlBuilder from "@sanity/image-url";
-import { createClient } from "next-sanity";
+import { createClient, groq } from "next-sanity";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
@@ -17,3 +17,12 @@ export const client = createClient({
 const builder = imageUrlBuilder(client)
 
 export const urlFor = (source: any) => builder.image(source)
+
+export const productQuery = groq`*[_type == "product"] {
+  ...
+} | order(_createdAt desc)`;
+
+export const products = async () => {
+  const productData = await client.fetch(productQuery);
+  return productData;
+}

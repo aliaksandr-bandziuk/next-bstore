@@ -12,11 +12,12 @@ interface Props {
 }
 
 const Product = ({ product, bg }: Props) => {
+  
   return (
     <div className="w-full relative group border-[1px] shadow-gray-500 rounded-md border-black hover:shadow-lg duration-200 overflow-hidden group">
       <div className="w-full h-80 flex items-center justify-center bg-white overflow-hidden">
         <div className={`relative ${bg}`}>
-          <Link href={`/`}>
+          <Link href={`/product/${product.slug?.current}`}>
             <Image
               src={urlFor(product?.image).url()}
               alt={product?.title}
@@ -79,6 +80,7 @@ const Product = ({ product, bg }: Props) => {
       </div>
     </div>
   )
+  
 }
 
 export default Product
