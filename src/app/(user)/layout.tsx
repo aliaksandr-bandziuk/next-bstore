@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import Navbar from '@/components/Navbar'
 import PageButton from '@/components/PageButton';
 import Footer from '@/components/Footer';
+import Layout from '@/components/Layout';
 
 export const metadata: Metadata = {
   title: 'Online Super Store',
@@ -18,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className='font-display'>
-        <Navbar />
-        <PageButton />
-        {children}
-        <Footer />
+        <Layout>
+          <Navbar />
+          <PageButton />
+          {children}
+          <Footer />
+        </Layout>
       </body>
     </html>
   )
