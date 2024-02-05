@@ -11,14 +11,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Price from "./Price";
-// import { loadStripe } from "@stripe/stripe-js";
-// import { useSession } from "next-auth/react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
 
 const Cart = () => {
   const { productData } = useSelector((state: StateProps) => state.orebi);
   const dispatch = useDispatch();
   const [totalAmt, setTotalAmt] = useState(0);
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     let price = 0;
@@ -36,29 +36,28 @@ const Cart = () => {
   };
 
   // Stripe payment
-
-  // const stripePromise = loadStripe(
-  //   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-  // );
-  // const createCheckout = async () => {
-  //   if (session?.user) {
-  //     const stripe = await stripePromise;
-  //     const response = await fetch("http://localhost:3000/api/checkout", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "appication/json" },
-  //       body: JSON.stringify({
-  //         items: productData,
-  //         email: session?.user?.email,
-  //       }),
-  //     });
-  //     const data = await response.json();
-  //     if (response.ok) {
-  //       stripe?.redirectToCheckout({ sessionId: data.id });
-  //     }
-  //   } else {
-  //     toast.error("Please sign in to make Checkout");
-  //   }
-  // };
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  );
+  const createCheckout = async () => {
+    if (session?.user) {
+      const stripe = await stripePromise;
+      const response = await fetch("https://ostore-alpha.vercel.app/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "appication/json" },
+        body: JSON.stringify({
+          items: productData,
+          email: session?.user?.email,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        stripe?.redirectToCheckout({ sessionId: data.id });
+      }
+    } else {
+      toast.error("Please sign in to make Checkout");
+    }
+  };
 
   return (
     <Container>
@@ -119,7 +118,7 @@ const Cart = () => {
               </div>
               <div className="flex justify-end">
                 <button
-                  // onClick={createCheckout}
+                  onClick={createCheckout}
                   className="w-52 h-10 bg-primeColor text-white hover:bg-black duration-300"
                 >
                   Proceed to Checkout
